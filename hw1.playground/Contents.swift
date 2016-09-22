@@ -10,43 +10,43 @@ import UIKit
 
 //: ## Q1: Optionals
 class Words {
-    var wordA : String!
+    var wordA : String! // implicitly unwrapped optional, does not need to be checked
     var wordB : String!
     
     init (wordA: String?, wordB: String?) {
         self.wordA = wordA
         self.wordB = wordB
     }
-
 //: ### Are the values passed in to the **init** function and those set to the instance
 //: ### variables the same type? If not, why?
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: [No, they are not the same type. One is type 'String?' and one is type 'String'.]
 
 
 //: ## Q2: Variable Types and Function Types
-    func arePalindromes(_ words: [String]) -> Bool {
+    class func arePalindromes(_ words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reversed())}
         let numElements = words.count
         
-        for i in 0 ..< numElements {
+        for i in 0...numElements-1 {
             if words[i] != reversedWords[i] {
                 return false
             }
         }
+        return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: [Improper syntax and this is used as a class func below (kind of like static). Not used on a specific class instance.]
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int] //Line X
+    func isAnagram() -> Bool {
+        var countLetters : [Character : Int] = [:] //Line X
         var lenA = self.wordA.characters.count
         var lenB = self.wordB.characters.count
         
@@ -58,7 +58,7 @@ class Words {
         var arrB = Array(self.wordB.characters)
         
         for i in 0...lenA-1 {
-            let letter = arrA[i]
+            let letter:Character = arrA[i]
             if let val = countLetters[letter] { //Line Y
                 countLetters[letter] = val + 1
             } else {
@@ -80,8 +80,7 @@ class Words {
                 return false
             }
         }
-        
-        return nil
+        return true
     }
 //: ### What is the problem with declaring **countLetters** as we do in **Line X**,
 //: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
@@ -89,7 +88,7 @@ class Words {
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: [You need to initialize the dictionary if you plan to write to one. This is used on a specific instance of a class. ]
     
     
 }
